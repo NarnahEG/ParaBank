@@ -39,3 +39,5 @@ build/
 
 ### Don't add to git ###
 .idea
+allure-report
+allure-results
