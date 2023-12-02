@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static parabank.Selectors.element;
 import static parabank.Selectors.verifiableElement;
 
 public class ParaBank {
@@ -23,23 +24,17 @@ public class ParaBank {
     public void loadPage(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        driver.get("https://parabank.parasoft.com/parabank/index.htm");
+        driver.get(Selectors.loadURL);
         driver.manage().window().maximize();
         wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     public void regRedirect(){
-        WebElement registerLink = driver.findElement(By.linkText("Register"));
+        WebElement registerLink = driver.findElement(By.linkText(Selectors.registerbtn));
         registerLink.click();
-        /*wait.until(ExpectedConditions.presenceOfElementLocated(By.linkText("Register")));
-        driver.findElement(By.cssSelector(String.valueOf(By.linkText("Register"))));*/
     }
 
     public void fillDetails(){
-       /* WebElement until = wait.until(
-                ExpectedConditions.
-                        presenceOfElementLocated(
-                                By.id(Selectors.user)));*/
         driver.findElement(By.cssSelector(Selectors.fName)).sendKeys(Selectors.firstName);
         driver.findElement(By.cssSelector(Selectors.lName)).sendKeys(Selectors.lastName);
         driver.findElement(By.cssSelector(Selectors.add)).sendKeys(Selectors.address);
@@ -54,15 +49,8 @@ public class ParaBank {
         driver.findElement(By.cssSelector(Selectors.register)).click();
     }
 
-  /*  public void regConfirmation(){
-        WebElement successMessage = driver.findElement(By.cssSelector(".title"));
-        //Assert.assertEquals(successMessage.getText(), "Your account was created successfully. You are now logged in.");
-        String verifiableText = verifiableElement.repeat();
-        Assert.state(originalText, verifiableText);
-    }*/
-
     public void verifyText(){
-        wait.until(ExpectedConditions.textToBe(By.cssSelector(".title"), verifiableElement));
+        wait.until(ExpectedConditions.textToBe(By.cssSelector(element), verifiableElement));
 
     }
 
